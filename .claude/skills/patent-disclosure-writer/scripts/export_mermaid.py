@@ -45,6 +45,36 @@ class MermaidExporter:
     """Mermaid 图表导出器"""
 
     @staticmethod
+    def find_skill_root() -> Path:
+        """
+        查找技能根目录
+
+        Returns:
+            技能根目录的绝对路径
+        """
+        # 方法 1: 使用 __file__ 获取脚本所在位置
+        script_path = Path(__file__).resolve()
+        # 脚本位于 scripts/ 目录，技能根目录是它的上级目录
+        skill_root = script_path.parent.parent
+
+        # 方法 2: 验证 templates 目录存在
+        if (skill_root / "templates").exists():
+            return skill_root
+
+        # 方法 3: 尝试从当前工作目录查找（适用于开发环境）
+        cwd = Path.cwd()
+        if (cwd / "templates").exists():
+            return cwd
+
+        # 方法 4: 搜索父目录中的 templates 文件夹
+        for parent in [cwd, *cwd.parents]:
+            if (parent / "templates").exists():
+                return parent
+
+        # 如果都找不到，返回脚本所在目录的父目录（最可能的位置）
+        return skill_root
+
+    @staticmethod
     def find_mmdc() -> Optional[str]:
         """
         查找 mmdc 命令的路径
@@ -85,28 +115,38 @@ class MermaidExporter:
             background: 背景颜色 (默认: white)
             width: 图片宽度像素 (默认: 2000，高度自动按比例)
         """
-        script_dir = Path(__file__).parent.parent
+        # 查找技能根目录
+        skill_root = self.find_skill_root()
 
         if theme_config is None:
             # 默认使用技能自带的黑白主题配置
-            theme_config = script_dir / "templates" / "mermaid-bw-theme.json"
+            theme_config = skill_root / "templates" / "mermaid-bw-theme.json"
 
         if style_css is None:
             # 默认使用技能自带的黑白样式 CSS
-            style_css = script_dir / "templates" / "mermaid-bw-style.css"
+            style_css = skill_root / "templates" / "mermaid-bw-style.css"
 
         self.theme_config = Path(theme_config)
         self.style_css = Path(style_css)
         self.background = background
         self.width = width
+        self.skill_root = skill_root
 
         # 验证主题配置文件存在
         if not self.theme_config.exists():
-            raise FileNotFoundError(f"主题配置文件不存在: {self.theme_config}")
+            raise FileNotFoundError(
+                f"主题配置文件不存在: {self.theme_config}\n"
+                f"技能根目录: {skill_root}\n"
+                f"请确保技能已正确安装。"
+            )
 
         # 验证 CSS 文件存在
         if not self.style_css.exists():
-            raise FileNotFoundError(f"样式文件不存在: {self.style_css}")
+            raise FileNotFoundError(
+                f"样式文件不存在: {self.style_css}\n"
+                f"技能根目录: {skill_root}\n"
+                f"请确保技能已正确安装。"
+            )
 
     def export_file(self,
                    input_file: Path,

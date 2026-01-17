@@ -122,12 +122,32 @@
 - 自动生成并插入缺失的附图
 - 确保附图编号连续
 
+#### 导出黑白附图
+
+使用 `/patent-export-figures` 命令可以将 Mermaid 附图导出为符合专利审核要求的黑白 PNG 图片：
+- 纯黑白配色（线条黑、文字黑、背景白）
+- 符合专利局审核要求
+- 适合打印和正式提交
+- 高分辨率，保持清晰度
+
+```bash
+# 导出所有章节的附图
+/patent-export-figures
+
+# 导出单个章节的附图
+/patent-export-figures markdown="05_技术方案.md"
+
+# 自定义输出目录
+/patent-export-figures output_dir="my_figures"
+```
+
 ### 斜杠命令
 
 | 命令 | 功能 | 说明 |
 |------|------|------|
 | `/patent` | 智能生成交底书 | 支持断点续传、选择性重新生成 |
 | `/patent-update-diagrams` | 智能补充附图 | 扫描章节并补充缺失的附图 |
+| `/patent-export-figures` | 导出黑白附图 | 将 Mermaid 附图导出为黑白 PNG 图片 |
 | `/patent-md-2-docx` | Markdown 转 DOCX | 将 Markdown 交底书转换为正式格式 |
 
 ## 使用示例

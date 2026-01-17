@@ -44,8 +44,18 @@ arguments:
 3. 检测现有附图编号，确保连续性
 4. 调用专门的附图生成器生成缺失的附图
 5. 将附图嵌入到章节文件中
+6. 如果设置了 `export_png=true`，调用 `patent-diagram-exporter` 代理导出黑白 PNG
 
 **不处理**：章节 01、02、08、09（这些章节不需要附图）
+
+## 实现代理
+
+本命令由以下子代理实现：
+
+- **patent-diagram-exporter**（代理 32）：负责将 Mermaid 图表导出为黑白 PNG
+- 使用技能自带的 `export_mermaid.py` 脚本
+- 自动应用黑白主题配置（`mermaid-bw-theme.json` 和 `mermaid-bw-style.css`）
+- 无需临时创建脚本，确保输出质量一致
 
 ## 参数说明
 

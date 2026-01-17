@@ -134,23 +134,23 @@ test -f "{diagram_desc_path}"
 - 第4章节子项（2）技术方案: `### **（2）**` 后跟 `技术方案`
 - 第5章节（具体实施方式）: `## **5\. 具体实施方式**`
 
-### 步骤 4: 生成 DOCX 插入脚本
+### 步骤 4: 导出 Mermaid 为 PNG
 
-调用 Python 脚本渲染 Mermaid 并插入到 DOCX：
+调用技能自带的导出脚本将 Mermaid 渲染为黑白 PNG：
 
 ```bash
-python .claude/scripts/docx_conversion/diagram_inserter.py \
-  "{markdown_file_path}" \
-  "{docx_file_path}" \
-  "{diagram_desc_path}" \
-  "{output_dir}/diagram_images"
+python .claude/skills/patent-disclosure-writer/scripts/export_mermaid.py \
+  --markdown "{markdown_file_path}" \
+  --output-dir "{output_dir}/diagram_images"
 ```
 
 脚本功能：
 1. 从 Markdown 中提取 Mermaid 代码块
-2. 使用 `mermaid-cli` 渲染为 PNG 图片
-3. 将图片插入到 DOCX 对应位置
-4. 应用图片格式（宽度、对齐、说明文字）
+2. 使用技能自带的黑白主题配置（`mermaid-bw-theme.json` 和 `mermaid-bw-style.css`）
+3. 使用 `mermaid-cli` 渲染为纯黑白 PNG 图片
+4. 按附图编号自动命名输出文件
+
+**注意**：此步骤仅导出 PNG 图片，不直接插入到 DOCX。用户需要手动将图片插入到 DOCX 文件中。
 
 #### 依赖检查
 
@@ -331,9 +331,11 @@ mmdc --version
 
 ## 相关文件
 
-- **Python 脚本**: `.claude/scripts/docx_conversion/diagram_inserter.py`
+- **导出脚本**: `.claude/skills/patent-disclosure-writer/scripts/export_mermaid.py`
+- **黑白主题**: `.claude/skills/patent-disclosure-writer/templates/mermaid-bw-theme.json`
+- **黑白样式**: `.claude/skills/patent-disclosure-writer/templates/mermaid-bw-style.css`
 - **上游环节**: `10-diagram-generator`（提供附图说明）
-- **下游环节**: `11-document-integrator`（接收插入后的文档）
+- **下游环节**: 用户手动将 PNG 图片插入 DOCX
 - **文档模板**: `skills/patent-disclosure-writer/templates/IP-JL-027(A／0)专利申请技术交底书模板.md`
 
 ---

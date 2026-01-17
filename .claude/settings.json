@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "set PYTHONIOENCODING=utf-8&& python \"C:\\WorkSpace\\agent\\patent-disclosure-writer-skill\\.claude\\hooks\\pushover-notify.py\""
+            "command": "set PYTHONIOENCODING=utf-8&& python \"C:\\WorkSpace\\agent\\patent-disclosure-writer-skill\\.claude\\hooks\\pushover-hook\\pushover-notify.py\""
           }
         ]
       }
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "set PYTHONIOENCODING=utf-8&& python \"C:\\WorkSpace\\agent\\patent-disclosure-writer-skill\\.claude\\hooks\\pushover-notify.py\""
+            "command": "set PYTHONIOENCODING=utf-8&& python \"C:\\WorkSpace\\agent\\patent-disclosure-writer-skill\\.claude\\hooks\\pushover-hook\\pushover-notify.py\""
           }
         ]
       }
@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "set PYTHONIOENCODING=utf-8&& python \"C:\\WorkSpace\\agent\\patent-disclosure-writer-skill\\.claude\\hooks\\pushover-notify.py\""
+            "command": "set PYTHONIOENCODING=utf-8&& python \"C:\\WorkSpace\\agent\\patent-disclosure-writer-skill\\.claude\\hooks\\pushover-hook\\pushover-notify.py\""
           }
         ]
       }

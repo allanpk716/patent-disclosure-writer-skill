@@ -3,7 +3,7 @@ name: patent-disclosure-writer
 description: 自动化生成符合中国专利标准的专利申请技术交底书。用户只需提供创新想法，技能自动完成专利检索、技术分析、附图生成和文档撰写。支持发明专利和实用新型专利，输出 Markdown 和 DOCX 格式。可选5人专家团队审核，提供专业质量保证。
 license: MIT
 metadata:
-  version: 2.1.0
+  version: 2.2.0
   timelessness-score: 8/10
   last-updated: 2025-01-16
 ---
@@ -66,6 +66,7 @@ metadata:
 |------|------|------|
 | `/patent` | 智能生成交底书 | 支持断点续传、选择性重新生成 |
 | `/patent-update-diagrams` | 智能补充附图 | 扫描章节并补充缺失的附图 |
+| `/patent-export-figures` | 导出黑白附图 | 将 Mermaid 附图导出为黑白 PNG 图片 |
 | `/patent-md-2-docx` | Markdown 转 DOCX | 将 Markdown 交底书转换为正式格式 |
 
 ## 执行流程
@@ -99,6 +100,7 @@ metadata:
 | protection-extractor | 6.关键点和欲保护点 | 08_专利保护点.md |
 | reference-collector | 7.其他参考资料 | 09_参考资料.md |
 | document-integrator | 文档整合 | 专利申请技术交底书_[发明名称].md |
+| diagram-exporter | 附图导出 | 黑白 PNG 图片 |
 
 详细说明见 [references/agents.md](references/agents.md)
 
@@ -275,6 +277,7 @@ npm install -g @mermaid-js/mermaid-cli
 
 | 版本 | 日期 | 变更说明 |
 |------|------|----------|
+| 2.2.0 | 2025-01-16 | 添加 `/patent-export-figures` 斜杠命令，专门用于导出黑白 PNG 附图 |
 | 2.1.0 | 2025-01-16 | 添加 Mermaid 黑白导出功能，符合专利审核要求 |
 | 2.0.0 | 2025-01-15 | 添加5人专家团队审核系统，支持分阶段审核、投票机制、争议解决 |
 | 1.1.0 | 2025-01-14 | 添加验证脚本、演进性分析 |
